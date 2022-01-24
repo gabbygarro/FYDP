@@ -23,7 +23,7 @@ cd svelte-app
 Install the dependencies...
 
 ```bash
-cd svelte-app
+cd FYDP
 npm install
 ```
 
