@@ -1,5 +1,6 @@
 <script>
 	import ContentViewer from './components/ContentViewer.svelte'
+	import Textfield from '@smui/textfield';
 </script>
 
 <header>

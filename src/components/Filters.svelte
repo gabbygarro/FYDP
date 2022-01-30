@@ -1,5 +1,5 @@
 <script>
-
+    let valueA = '';
 </script>
 
 <div style="width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
