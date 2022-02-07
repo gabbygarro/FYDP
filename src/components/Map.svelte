@@ -8,15 +8,15 @@
     const map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/elhouck/ckz1rzqck006e14pg9ub32fha",
-      center: [-80, 42.5],
-      zoom: 8,
+      center: [-82, 42.3],
+      zoom: 7,
     });
     
     // listener for marker select
     map.on('click', (event) => {
       
       const features = map.queryRenderedFeatures(event.point, {
-        layers: ['teststations']
+        layers: ['stationdata']
       });
       if (!features.length) {
         return;
@@ -26,8 +26,8 @@
       const popup = new mapboxgl.Popup({ offset: [0, -15] })
       .setLngLat(feature.geometry.coordinates)
       .setHTML(
-        `<p>${feature.properties.title}</p>`
-        //In the actual implementation, we use title field to get SDK data for station
+        `<p>${feature.properties.name}</p>`
+        //In the actual implementation, we use name field to get SDK data for station
       )
       .addTo(map);
 

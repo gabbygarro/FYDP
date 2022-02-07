@@ -1,0 +1,484 @@
+{ "type": "FeatureCollection",
+  "features": [
+  {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.647768, 41.464403]
+      },
+      "properties": {
+        "name": "Sandusky Water Intake"
+      }
+    },
+  {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.9386, 41.514315]
+      },
+      "properties": {
+        "name": "Ottawa County"
+      }
+    },
+  {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.2903, 41.67196]
+      },
+      "properties": {
+        "name": "City of Oregon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.7269, 41.5426]
+      },
+      "properties": {
+        "name": "Village of Marblehead"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.363, 41.721]
+      },
+      "properties": {
+        "name": "Mentor Wet Well"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.807, 41.904]
+      },
+      "properties": {
+        "name": "Ashtabula Water Intake"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.012378, 41.5186]
+      },
+      "properties": {
+        "name": "Avon Pump Station"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.258675, 41.69947]
+      },
+      "properties": {
+        "name": "Toledo Water Intake Crib"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.2161, 41.4545]
+      },
+      "properties": {
+        "name": "City of Elyria"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.23877, 41.48657]
+      },
+      "properties": {
+        "name": "City of Lorain"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.3079, 41.67496]
+      },
+      "properties": {
+        "name": "Toledo Pump Station"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.154, 42.11]
+      },
+      "properties": {
+        "name": "TREC Tower"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.131, 42.153]
+      },
+      "properties": {
+        "name": "Beach 2 Tower"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.734791, 42.216646]
+      },
+      "properties": {
+        "name": "Seagull Test Dataset 1"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -82.740578, 41.816802]
+      },
+      "properties": {
+        "name": "University of Windsor RAEON - Buoy 1"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -82.43, 41.84999]
+      },
+      "properties": {
+        "name": "University of Windsor RAEON - Buoy 2"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.54137,  41.8175]
+      },
+      "properties": {
+        "name": "University of Windsor RAEON - Buoy 3"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.107742, 42.234193]
+      },
+      "properties": {
+        "name": "University of Windsor RAEON - Buoy 4"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.370223, 41.724365]
+      },
+      "properties": {
+        "name": "Little Cedar Point"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.370223,  41.53277]
+      },
+      "properties": {
+        "name": "Sandusky Subbasen Buoy"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.8231, 41.65912]
+      },
+      "properties": {
+        "name": "Gibralter Island Buoy"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -81.69372, 41.73213]
+      },
+      "properties": {
+        "name": "Cleveland Water Offshore Buoy"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.26145, 41.702033]
+      },
+      "properties": {
+        "name": "Toledo Water Intake"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.76528, 41.55016]
+      },
+      "properties": {
+        "name": "Cleveland Intake Crib"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.736287, 41.912797]
+      },
+      "properties": {
+        "name": "UWSS RAEON - Buoy 2"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.12985, 41.61652]
+      },
+      "properties": {
+        "name": "Carrol Township"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.554418, 41.409822]
+      },
+      "properties": {
+        "name": "City of Huron"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.75045, 41.469318]
+      },
+      "properties": {
+        "name": "Sandusky Bay"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.331, 41.762]
+      },
+      "properties": {
+        "name": "Western Erie 2"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -83.195, 41.826667]
+      },
+      "properties": {
+        "name": "Western Erie 4"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.359167, 41.819167]
+      },
+      "properties": {
+        "name": "Western Erie 8"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.834523, 41.481047]
+      },
+      "properties": {
+        "name": "Sandusky Bay Bridge"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.812282, 41.645815]
+      },
+      "properties": {
+        "name": "Put-in-Bay"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.125, 42.1444]
+      },
+      "properties": {
+        "name": "Presque Isle Bay"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.780258, 41.973945]
+      },
+      "properties": {
+        "name": "UWSS RAEON - Buoy 3"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.3339, 41.7282]
+      },
+      "properties": {
+        "name": "ESP1"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.636, 42.409]
+      },
+      "properties": {
+        "name": "Lake Erie Central Basin buoy - OMECP Environmental Sensors"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.8803, 41.5209]
+      },
+      "properties": {
+        "name": "Rocky River, OH Buoy"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.6176, 41.6194]
+      },
+      "properties": {
+        "name": "Euclid, OH Buoy"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-80.134842, 42.184658]
+      },
+      "properties": {
+        "name": "Erie Nearshore Buoy for Erie, PA"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.206299, 42.229301]
+      },
+      "properties": {
+        "name": "HW Southwest"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.1445, 42.2079]
+      },
+      "properties": {
+        "name": "HW Wyandotte"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.255645, 41.947181]
+      },
+      "properties": {
+        "name": "HW Monroe"
+      }
+      
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-81.636, 42.3]
+      },
+      "properties": {
+        "name": "Aexonis Test Buoy"
+      }
+      
+    }
+  ]
+}
