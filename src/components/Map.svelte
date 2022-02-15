@@ -12,8 +12,8 @@
       zoom: 7,
     });
     
-    // listener for marker select
-    map.on('click', (event) => {
+    // listener for marker select (hover)
+    map.on('mousemove', (event) => {
       
       const features = map.queryRenderedFeatures(event.point, {
         layers: ['stationdata']
@@ -33,6 +33,11 @@
 
     });
 
+    // listener for marker select (click)
+
+    // listener for hover away
+    // map.on('mouseleave', (event) )
+
   })
     /*
     
@@ -40,7 +45,7 @@
     
 </script>
 
-<div style="width: 110%; height: 30rem;" id="map">
+<div style="margin: 0rem 0rem 2rem 0rem; width: 80%; height: 100%;" id="map">
 </div>
 
 

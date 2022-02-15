@@ -18,6 +18,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@material/button": "^13.0.0",
     "mapbox-gl": "^2.6.1",
     "material-components-web": "^13.0.0",
     "material-design-icons": "^3.0.1",
