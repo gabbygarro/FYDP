@@ -1,15 +1,27 @@
 <script>
+    function toggleSidebar() {
+        var element = document.getElementById("expanded");
+        element.classList.toggle("collapsed");
+
+        element = document.getElementById("collapsed");
+        element.classList.toggle("collapsed");
+    }
+
+    function filterButton(x) {
+        var element = document.getElementById(x);
+        element.classList.toggle("unclicked");
+    }
 </script>
 
-<div style="width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
+<div id="expanded" style="display: initial; width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
     <div class="filterHeader">    
         <span class="material-icons" style="color: white; padding: 0.5rem;">
         tune
         </span>
-        <h3>
+        <h3 style="width: 90%;">
             Filters
         </h3>
-        <button class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 4.5rem;">
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
             <span class="material-icons" style="color: white;">
             keyboard_double_arrow_left
             </span>
@@ -18,17 +30,19 @@
     <hr class="solid">
     <h4>Location</h4>
     <p>
-    Search for a station or coordinate to center the viewer.
+    Search for a station or coordinate to center the viewer on.
     </p>
     <div class="container">
         <div class="sw" style="padding:0rem 1rem;">
-            <form style="display:flex; flex-direction: row;">
-                <input type="search" class="search" placeholder="Search..." style="height: 1.5rem; width: 80%;" />
-                <button class="go" style="margin: 0rem 1rem; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;">
-                    <span class="material-icons">
-                        search
-                    </span>
-                </button>
+            <form>
+                <div class="outerBorder" style="display:flex; flex-direction: row;">
+                    <input type="search" class="search" placeholder="Search..." style="height: 1.5rem; width: 90%;" />
+                    <button class="go" style="margin: 0; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;">
+                        <span class="material-icons">
+                            search
+                        </span>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
@@ -39,29 +53,43 @@
     Filter out data sources, sensor types and sensor statuses.
     </p>
     <h5>Data Sources</h5>
-    <button style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
+    <button class="filterButton" id="filterSatData" on:click={() => filterButton("filterSatData")} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
         <span class="mdc-button__ripple"></span>
         <span>Satellite Data</span>
     </button>
-    <button style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
+    <button class="filterButton" id="filterSituData" 
+        on:click={() => filterButton("filterSituData")}
+        style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%"
+    >
         <span class="mdc-button__ripple"></span>
         <span>In-Situ Data</span>
     </button>
     <h5>Station Status</h5>
-    <button style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
+    <button class="filterButton" id="filterActiveStat" on:click={() => filterButton("filterActiveStat")} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
         <span class="mdc-button__ripple"></span>
         <span>Active</span>
     </button>
-    <button style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
+    <button class="filterButton" id="filterInactiveStat" on:click={() => filterButton("filterInactiveStat")} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
         <span class="mdc-button__ripple"></span>
         <span>Inactive</span>
     </button>
 </div>
 
+<div class="collapsed" id="collapsed" style="width: 4.5rem; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
+    <div class="filterHeader">    
+        <span class="material-icons" style="color: white; padding: 0.5rem;">
+        tune
+        </span>
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+            <span class="material-icons" style="color: white;">
+            keyboard_double_arrow_right
+            </span>
+        </button>
+    </div>
+    <hr class="solid">
+</div>    
+
 <style>
-    button.active {
-        background-color: green;
-    }
     p {
         color: white;
         padding: 0 1rem;
