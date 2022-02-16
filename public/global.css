@@ -149,28 +149,90 @@ input, button, select, textarea {
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
-	border: 1px solid #ccc;
 	border-radius: 2px;
+	border: 0px;
 }
 
-input:disabled {
-	color: #ccc;
+input {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 450; /* normal is 400 */
+	height: 24px;
+	width: 192px;
+	background-color: white;
+	color: #146C5F; /* Green */
+	border-radius: 7px 0px 0px 7px;
+}
+
+::placeholder {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: normal;
+	color: #146C5F;
+	opacity: 80%;
+  }
+
+input:focus {
+	outline: none !important;
 }
 
 button {
-	color: #333;
-	background-color: #f4f4f4;
+	color: #146C5F; /* Green */
+	background-color: white;
 	outline: none;
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: normal;
+	border-radius: 0px 7px 7px 0px;
+	border-left: 2px solid #146C5F;
 }
 
-button:disabled {
-	color: #999;
+button.unclicked {
+	background-color: white !important; /* !important to override the filterButton settings */
+	color: #146C5F !important; /* Green */
+	border: 2px solid #146C5F !important; /* Green */
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+button.filterButton {
+	background-color: #146C5F; /* Green */
+	color: white; 
+	border: 2px solid white; /* Green */
+	box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 9px;
+	height: 24px;
+	width: 158px;
 }
 
-button:focus {
-	border-color: #666;
+button.unclicked {
+	background-color: white;
+	color: #146C5F; /* Green */
+	border: 2px solid #146C5F; /* Green */
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+	box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button.filterButton:hover {
+	box-shadow: inset 0px 6px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+button.unclicked:hover {
+	box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+.outerBorder {
+	height: 24px;
+	padding: 2px;
+	border-radius: 9px;
+	background-color: #146C5F; /* Green */
+	border: 2px solid white;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.collapsed {
+	display: none !important;
 }

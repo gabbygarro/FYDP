@@ -45,7 +45,7 @@
     
 </script>
 
-<div style="margin: 0rem 0rem 2rem 0rem; width: 80%; height: 100%;" id="map">
+<div style="margin-right: 2rem; width: 100%; height: 100%;" id="map">
 </div>
 
 
