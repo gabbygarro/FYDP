@@ -1,19 +1,5 @@
 <script>
 	import ContentViewer from './components/ContentViewer.svelte'
-	import Textfield from '@smui/textfield';
-
-	let rand = -1;
-  	function getRand() {
-    	fetch("./rand")
-      		.then(d => d.text())
-      		.then(d => (rand = d));
-  }
-	function getStations() {
-    	fetch("./stations")
-      		.then(x => x.text())
-      		.then(x => (stations = x));
-		console.log(stations);
-  }
 </script>
 
 <header>
@@ -28,10 +14,6 @@
 	<h2>Map View</h2>
 	<p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
 	<ContentViewer/>
-	
-	<!--This bit is just to help figure out the flask connection pls ignore-->
-	<!--<p>Your number is {rand}!</p>-->
-	<!--<button on:click={getRand}>Get a random number</button>-->
 </main>
 <footer></footer>
 
