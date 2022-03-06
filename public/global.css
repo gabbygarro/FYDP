@@ -257,3 +257,19 @@ button.unclicked:hover {
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip, .mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip  {
 	border-bottom-color: #683c8c;
 }
+
+.notcurrentview {
+	display: none !important;
+}
+
+.mapview {
+	font-family: "Roboto";
+}
+
+.stationview {
+	font-family: "Roboto";
+}
+
+.dataview {
+	font-family: "Roboto";
+}

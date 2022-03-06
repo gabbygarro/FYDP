@@ -11,8 +11,18 @@
 	</header>
 </header>
 <main>
-	<h2>Map View</h2>
-	<p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
+	<div class="mapview notcurrentview">
+		<h2>Map View</h2>
+		<p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
+	</div>
+	<div class="stationview">
+		<h2>Station View</h2>
+		<p>Insert text about station here. somehow readin data</p>
+	</div>
+	<div class="dataview notcurrentview">
+		<h2>Data View</h2>
+		<p>Insert text about station here. somehow readin specific data info</p>
+	</div>
 	<ContentViewer/>
 </main>
 <footer></footer>
