@@ -194,7 +194,7 @@ button.unclicked {
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
 }
 
-button.filterButton {
+button.filterSatData, button.filterSituData, button.filterActiveStat, button.filterInactiveStat  {
 	background-color: #146C5F; /* Green */
 	color: white; 
 	border: 2px solid white; /* Green */
@@ -271,5 +271,13 @@ button.unclicked:hover {
 }
 
 .dataview {
+	font-family: "Roboto";
+}
+
+.collapsedview {
+	font-family: "Roboto";
+}
+
+.expandedview {
 	font-family: "Roboto";
 }
