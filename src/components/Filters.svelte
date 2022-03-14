@@ -1,3 +1,4 @@
+<!--
 <script>
     function toggleSidebar() {
         var elements = document.getElementsByClassName("expandedview");
@@ -115,3 +116,4 @@
         display: flex;
     }
 </style>
+-->
