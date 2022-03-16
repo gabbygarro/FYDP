@@ -17,11 +17,11 @@
 	</div>
 	<div class="stationview notcurrentview">
 		<h2>Station View</h2>
-		<p>Insert text about station here. somehow readin data</p>
+		<p>Insert text about station here. Reading data from station.</p>
 	</div>
 	<div class="dataview notcurrentview">
 		<h2>Data View</h2>
-		<p>Insert text about station here. somehow readin specific data info</p>
+		<p>Insert text about station here. Reading specific dataset from station.</p>
 	</div>
 	<ContentViewer/>
 </main>
