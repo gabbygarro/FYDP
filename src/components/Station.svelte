@@ -15,9 +15,20 @@
             "name": "Value",
             "type": "number"
         }
-    ]
+    ];
 
-    let datapoints = []
+    let type = '';
+
+    async function doPostType (measType) {
+        type = measType;
+        console.log("setDataView: ", type);
+        let res = await fetch(`./station_measurement?type=${type}`)
+        if (res.ok) {
+            console.log(name, type);
+        }
+    }
+
+    let datasetLength = 0;
 
     function toggleView(currentView, newView){
 		var elements = document.getElementsByClassName(currentView);
@@ -35,55 +46,85 @@
 
     function strDictToArrays(dictData) {
         //str to Dict
-        //{ "timestamp": { "0": "Thu, 26 Aug 2021 00:00:00 GMT", "1": "Thu, 26 Aug 2021 00:10:00 GMT",
-        let dictionary ="";
-        let strTimestamp="";
-        let value = "";
-        datapoints = [];
-        //console.log("dictionary: ", dictData);
-        dictionary = dictData.split(" \n  \"value\": {\n    ");
+        console.log(dictData);
+        if (dictData != "Not loaded measurements yet"){
+            console.log("running...");
+            
+            let dictionary ="";
+            let strTimestamps=[];
+            let values = [];
+            let strMeasTypes =[];
+            let datasets = [];
+            //console.log("dictionary: ", dictData);
+            dictData = dictData.slice(1,-12);
+            dictionary = dictData.split("    }\n  }, ");
+            for(var i=0, len=dictionary.length; i<len; i++)
+            {
+                let dataset = [];
+                dictionary[i] = dictionary[i].slice(4);
+                dictionary[i] = dictionary[i].split("\": {\n    \"");
+                strMeasTypes.push(dictionary[i][0]);
+                //console.log(strMeasTypes[i]);
 
-        strTimestamp = dictionary[0];
-        strTimestamp = strTimestamp.slice(24, -3);
-        strTimestamp = strTimestamp.split("\": ");
-        //console.log("===TIMESTAMP===");
-        //console.log(strTimestamp);
+                dictionary[i]= dictionary[i][1];
+                dictionary[i] = dictionary[i].split("    }, \n    \"value\": {");
+                strTimestamps.push(dictionary[i][0]);
+                strTimestamps[i] = strTimestamps[i].slice(25, -6);
+                strTimestamps[i] = strTimestamps[i].split("\": ");
 
-        value = dictionary[1];
-        value = value.slice(1,-7);
-        value = value.split("\": ");
-        //console.log("===VALUE===");
-        //console.log(value);
-        
-        for (let j = 1; j < value.length; j++){
-            var timestamp = strTimestamp[j];
-            timestamp = timestamp.slice(6);
-            if ( j!= value.length -1){
-                timestamp = timestamp.split(" GMT\", \n    \"");
+                values.push(dictionary[i][1]);
+                
+                values[i] = values[i].slice(1,-1);
+                values[i] = values[i].split("\": ");
+                values[i].shift()
+                
+
+                for (let j = 0; j < values[i].length; j++){ //values list starts at index 1
+                    var timestamp = strTimestamps[i][j]; //values list starts at index 1
+                    timestamp = timestamp.slice(6);
+                    if ( j!= values[i].length -1){
+                        timestamp = timestamp.split(" GMT\", \n      \"");
+                    }
+                    else {
+                        timestamp = timestamp.split(" GMT\"\n ");
+                    }
+                    
+                    var numValue = values[i][j];
+                    numValue = numValue.split(", \n      \"");
+                    //console.log(numValue)
+                    
+                    numValue = Number(numValue[0]);    
+                    
+                    dataset.push([timestamp[0], numValue]);
+                }
+                datasets.push([dataset, strMeasTypes[i]]);
+                //console.log(datasets[i])
             }
-            else {
-                timestamp = timestamp.split(" GMT\"\n ");
-            }
-            var numValue = value[j];
-            numValue = numValue.split(", \n    \"");
-            numValue = Number(numValue[0]);
-            datapoints.push([timestamp[0], numValue]);
+            //console.log("dictionary: ",dictionary);
+            //console.log("Meas Types: ",strMeasTypes);
+            //console.log("timestamps: ",strTimestamps);
+            //console.log("Values: ",values);            
+            
+            //console.log(datasets);
+            return datasets
         }
-        
-        //console.log(datapoints);
+    }
 
-        return datapoints
+    async function getData(){
+        let data = await fetch("./station_measurements").then(response => response.text()).then(data => strDictToArrays(data));
+        datasetLength = data.length;
+        return data
     }
 
     let promise,
-        dataFetch = fetch("./station_measurements").then(response => response.text()).then(data => strDictToArrays(data)),
-        schemaFetch = schema;
-    
-    promise = Promise.all([dataFetch, schemaFetch]);
+        dataFetch = getData();
 
-    const getChartConfig = ([data, schema]) => {
-        const fusionDataStore = new FusionCharts.DataStore(),
-        fusionTable = fusionDataStore.createDataTable(data, schema);
+	promise = Promise.all([dataFetch]);
+
+    function chartSetup([data, schema]){
+        console.log(data, schema);
+        var fusionDataStore = new FusionCharts.DataStore(),
+        fusionTable = fusionDataStore.createDataTable(data[0], schema);
         //console.log("===data===");
         //console.log(data);
         //console.log("===schema===");
@@ -122,7 +163,7 @@
                 style: {
                     text: "txt-white"
                 },
-                text: "Chlorophyll Fluorescence"
+                text: data[1]
             },
             xAxis: {
                 style: {
@@ -165,7 +206,7 @@
             }
         }
         };
-    };
+    }
 </script>
 
 <div style="
@@ -181,60 +222,26 @@
             </span>
         </button>
     <hr class="solid" style="margin: 0rem 0.5rem;">
-    <div class="grid-container">
+    <div class="grid-container" style="position: relative;">
         <!-- Figure out how to for loop based on number of items for station -->
-        <div class="grid-item" on:click={() => toggleView("stationview","dataview")}>
-            <div id="chart-container" >
-                {#await promise}
-                    <h3>Fetching data and schema...</h3>
-                {:then value}
-                <SvelteFC
-                    {...getChartConfig(value)}
-                />
-                {:catch error}
-                    <h3>Something went wrong: {error.message}</h3>
-                {/await}
-            </div>
-        </div>
-        <div class="grid-item" on:click={() => toggleView("stationview","dataview")}>
-            <div id="chart-container" >
-                {#await promise}
-                    <h3>Fetching data and schema...</h3>
-                {:then value}
-                <SvelteFC
-                    {...getChartConfig(value)}
-                />
-                {:catch error}
-                    <h3>Something went wrong: {error.message}</h3>
-                {/await}
-            </div>
-        </div>
-        <div class="grid-item" on:click={() => toggleView("stationview","dataview")}>
-            <div id="chart-container" >
-                {#await promise}
-                    <h3>Fetching data and schema...</h3>
-                {:then value}
-                <SvelteFC
-                    {...getChartConfig(value)}
-                />
-                {:catch error}
-                    <h3>Something went wrong: {error.message}</h3>
-                {/await}
-            </div>
-        </div>
-        <div class="grid-item" on:click={() => toggleView("stationview","dataview")}>
-            <div id="chart-container" >
-                {#await promise}
-                    <h3>Fetching data and schema...</h3>
-                {:then value}
-                <SvelteFC
-                    {...getChartConfig(value)}
-                />
-                {:catch error}
-                    <h3>Something went wrong: {error.message}</h3>
-                {/await}
-            </div>
-        </div>
+        {#await promise}
+            <h3>Fetching data and schema...</h3>
+        {:then datasets}
+            {#each Array(datasetLength) as _, i}
+                <div class="grid-item" 
+                    on:click={() => toggleView("stationview","dataview")}
+                    on:click={() => doPostType(datasets[0][i][1])}
+                >
+                    <div id="chart-container" >
+                        <SvelteFC
+                            {...chartSetup([datasets[0][i],schema])}
+                        />
+                    </div>
+                </div>
+            {/each}
+        {:catch error}
+        <h3>Something went wrong: {error.message}</h3>
+        {/await}
     </div>
 </div>
 
@@ -243,10 +250,10 @@
     .grid-container {
         display: grid;
         grid-template-columns: auto auto;
-        grid-template-rows: auto auto;
         column-gap: 1rem;
         row-gap: 1rem;
         padding: 1rem;
+        min-height: 23.625rem;
     }
 
     .grid-item {

@@ -118,6 +118,7 @@ header {
 	position: fixed;
   	left: 0;
 	top: 0;
+	z-index: 2;
 	color: white;
 	font-size: 16px;
 	

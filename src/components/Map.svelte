@@ -10,6 +10,13 @@
   let locName ='';
   let satOn = true;
   let situOn = true;
+
+  async function doPost () {
+        let res = await fetch(`./station_measurements?station=${name}`)
+        if (res.ok) {
+            console.log(name);
+        }
+  }
   
   //I have made this a global which is wildly improper but does work
   let map;
@@ -143,7 +150,8 @@
     }
 
     //Find SDK info
-    getSDKData();
+    //getSDKData();
+    doPost();
       
     // Populate the popup and set its coordinates
     // based on the feature found.
@@ -154,18 +162,20 @@
     });
     
   // listener for marker select (click)
-  map.on('click', 'stationdata', () => toggleView("mapview","stationview"));
+    map.on('click', 'stationdata', (e) => {
+        //console.log(name);
+        toggleView("mapview","stationview");
+    });
     
   //Listener for hover away
     map.on('mouseleave', 'stationdata', () => {
     map.getCanvas().style.cursor = '';
     popup.remove();
-    name = '';
+    //name = '';
     stationData = -1;
     });
   });
 
- 
 </script>
 
 <div class="expandedview" style="display: initial; width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
@@ -210,7 +220,7 @@
   <h5 style="margin: 2rem 0rem 1rem 0rem;" >Data Sources</h5>
   <button class="filterSatData" on:click={() => filterButton("filterSatData",locName)} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
       <span class="mdc-button__ripple"></span>
-      <span>Satellite Data</span>
+      <span>Remote Data</span>
   </button>
   <button class="filterSituData"
       on:click={() => filterButton("filterSituData",locName)}

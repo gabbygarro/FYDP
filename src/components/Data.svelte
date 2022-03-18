@@ -27,57 +27,64 @@
             "name": "Value",
             "type": "number"
         }
-    ]
+    ] 
 
-    let datapoints = []
+    async function strDictToArrays(data) {
+        let dictData = data;
+        let datapoints = [];
+        console.log("Test");
+        if (dictData != "Not loaded measurement yet"){
+            //str to Dict
+            //{ "timestamp": { "0": "Thu, 26 Aug 2021 00:00:00 GMT", "1": "Thu, 26 Aug 2021 00:10:00 GMT",
+            let dictionary ="";
+            let strTimestamp="";
+            let value = "";
+            
+            console.log("dictionary: ", dictData);
+            dictionary = dictData.split(" \n  \"value\": {\n    ");
 
-    function strDictToArrays(dictData) {
-        //str to Dict
-        //{ "timestamp": { "0": "Thu, 26 Aug 2021 00:00:00 GMT", "1": "Thu, 26 Aug 2021 00:10:00 GMT",
-        let dictionary ="";
-        let strTimestamp="";
-        let value = "";
-        datapoints = [];
-        //console.log("dictionary: ", dictData);
-        dictionary = dictData.split(" \n  \"value\": {\n    ");
+            strTimestamp = dictionary[0];
+            strTimestamp = strTimestamp.slice(24, -3);
+            strTimestamp = strTimestamp.split("\": ");
+            //console.log("===TIMESTAMP===");
+            //console.log(strTimestamp);
 
-        strTimestamp = dictionary[0];
-        strTimestamp = strTimestamp.slice(24, -3);
-        strTimestamp = strTimestamp.split("\": ");
-        //console.log("===TIMESTAMP===");
-        //console.log(strTimestamp);
-
-        value = dictionary[1];
-        value = value.slice(1,-7);
-        value = value.split("\": ");
-        //console.log("===VALUE===");
-        //console.log(value);
-        
-        for (let j = 1; j < value.length; j++){
-            var timestamp = strTimestamp[j];
-            timestamp = timestamp.slice(6);
-            if ( j!= value.length -1){
-                timestamp = timestamp.split(" GMT\", \n    \"");
+            value = dictionary[1];
+            value = value.slice(1,-7);
+            value = value.split("\": ");
+            //console.log("===VALUE===");
+            //console.log(value);
+            
+            for (let j = 1; j < value.length; j++){
+                var timestamp = strTimestamp[j];
+                timestamp = timestamp.slice(6);
+                if ( j!= value.length -1){
+                    timestamp = timestamp.split(" GMT\", \n    \"");
+                }
+                else {
+                    timestamp = timestamp.split(" GMT\"\n ");
+                }
+                var numValue = value[j];
+                numValue = numValue.split(", \n    \"");
+                numValue = Number(numValue[0]);
+                datapoints.push([timestamp[0], numValue]);
             }
-            else {
-                timestamp = timestamp.split(" GMT\"\n ");
-            }
-            var numValue = value[j];
-            numValue = numValue.split(", \n    \"");
-            numValue = Number(numValue[0]);
-            datapoints.push([timestamp[0], numValue]);
+            
+            //console.log(datapoints);
+
+            return datapoints
         }
-        
-        //console.log(datapoints);
+    }
 
-        return datapoints
+    async function getData(){
+        let data = await fetch("./station_measurement").then(response => response.text()).then(data => strDictToArrays(data));
+        return data
     }
 
     let promise,
-        dataFetch = fetch("./station_measurements").then(response => response.text()).then(data => strDictToArrays(data)),
-        schemaFetch = schema;
-    
-    promise = Promise.all([dataFetch, schemaFetch]);
+        dataFetch = getData();
+
+	promise = Promise.all([dataFetch]);
 
     const getChartConfig = ([data, schema]) => {
     const fusionDataStore = new FusionCharts.DataStore(),
@@ -204,7 +211,7 @@
                 <h3>Fetching data and schema...</h3>
             {:then value}
             <SvelteFC
-                {...getChartConfig(value)}
+                {...getChartConfig([value[0],schema])}
             />
             {:catch error}
                 <h3>Something went wrong: {error.message}</h3>
