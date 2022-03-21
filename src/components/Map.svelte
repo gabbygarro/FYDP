@@ -20,6 +20,11 @@
   
   //I have made this a global which is wildly improper but does work
   let map;
+  let features;
+
+  function normalize(string) {
+    return string.trim().toLowerCase();
+}
 
     function toggleSidebar() {
         var elements = document.getElementsByClassName("expandedview");
@@ -59,34 +64,45 @@
         else if(x == "filterSituData")
             situOn = !situOn;
 
-        if(satOn && situOn){
-            if(locName !== ""){ 
-                map.setFilter('stationdata', ['==', ['downcase',['get', 'name']], ['downcase',locName]]);
+        let typeFilter = "";
+
+        //filter location and station type
+        
+        const filtered = [];
+        for (const feature of features) {
+            const name = normalize(feature.properties.name);
+            const stationType = normalize(feature.properties.stationType);
+            
+            if(satOn && situOn){}
+            else if(!satOn && !situOn)
+                typeFilter = "none";
+            else if(satOn)
+                typeFilter = "satellite";
+            else
+                typeFilter = "insitu";
+            
+            console.log("type: ", typeFilter);
+            if (name.includes(locName) && (typeFilter === ""|| stationType === typeFilter)) {
+                console.log("Huh?", stationType);
+                filtered.push(feature);
             }
-            else{
-                map.setFilter('stationdata',null);
-            }
-        }
-        else if(!satOn && !situOn){
-            map.setFilter('stationdata', ['==', ['get', 'stationType'], "None"]);
-        }
-        else if(satOn){
-            if(locName !== ""){ 
-                map.setFilter('stationdata', ['all', ['==', ['downcase',['get', 'name']], ['downcase',locName]], ['==', ['get', 'stationType'], "Satellite"]]);
-            }
-            else {
-                map.setFilter('stationdata', ['==', ['get', 'stationType'], "Satellite"]);
-            }
+        }   
+
+        if(filtered.length !=0){
+        map.setFilter('stationdata', [
+            'match',
+            ['get', 'name'],
+            filtered.map((feature) => {
+            return feature.properties.name;
+            }),
+            true,
+            false
+        ]);
         }
         else{
-            if(locName !== ""){ 
-                map.setFilter('stationdata', ['all', ['==', ['downcase',['get', 'name']], ['downcase',locName]], ['==', ['get', 'stationType'], "InSitu"]]);
-            }
-            else {
-                map.setFilter('stationdata', ['==', ['get', 'stationType'], "InSitu"]);
-            }
-           
+            map.setFilter('stationdata', ['==', ['get', 'stationType'], "None"]);
         }
+       
     }
 
   function toggleView(currentView, newView){
@@ -126,6 +142,7 @@
     center: [-82, 42.3],
     zoom: 7,
   });
+
 
   const popup = new mapboxgl.Popup({
     className: "popup",
@@ -174,6 +191,24 @@
     //name = '';
     stationData = -1;
     });
+
+    //Get all locations
+    //map.setFilter('stationdata',null);
+
+    map.on('load', () => {
+        features = map.queryRenderedFeatures({ layers: ['stationdata'] });
+    });
+    
+    /*map.on('render', afterChangeComplete);
+    
+    function afterChangeComplete () {
+        if (!map.loaded()) { return } 
+
+        features = map.queryRenderedFeatures({ layers: ['stationdata'] });
+        map.off('render', afterChangeComplete);
+    }
+    */
+
   });
 
 </script>

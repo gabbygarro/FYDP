@@ -46,7 +46,7 @@
 
     function strDictToArrays(dictData) {
         //str to Dict
-        console.log(dictData);
+        //console.log(dictData);
         if (dictData != "Not loaded measurements yet"){
             console.log("running...");
             
