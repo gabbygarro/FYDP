@@ -1,6 +1,9 @@
 <script>
   import { onMount } from 'svelte'
   import mapboxgl from "mapbox-gl";
+  import { view } from '../store.js'
+  import { stationView } from '../store.js'
+  import { stationName} from '../store.js'
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiZWxob3VjayIsImEiOiJja3oxcng5c2cweGx4Mm5vNmQ2NW4yaDNtIn0._1AeE9ZA69C78qto9n7WOw'
 
@@ -12,10 +15,18 @@
   let situOn = true;
 
   async function doPost () {
-        let res = await fetch(`./station_measurements?station=${name}`)
-        if (res.ok) {
-            console.log(name);
+    let i=0;
+    let res = await fetch(`./station_measurements?station=${name}`)
+    while (i<1){
+        if ({$stationView}.length == 0){
+            console.log($stationView);
         }
+        else if (res.ok) {
+            i++;
+            stationName.set(name);
+            console.log(name);
+        }  
+    }
   }
   
   //I have made this a global which is wildly improper but does work
@@ -105,18 +116,8 @@
        
     }
 
-  function toggleView(currentView, newView){
-		var elements = document.getElementsByClassName(currentView);
-        for(var i=0, len=elements.length; i<len; i++)
-        {
-            elements[i].classList.toggle("notcurrentview");
-        }
-
-        elements = document.getElementsByClassName(newView);
-        for(var i=0, len=elements.length; i<len; i++)
-        {
-            elements[i].classList.toggle("notcurrentview");
-        }
+  function toggleView(){
+        view.update(n => n + 1);
 	}
 
   async function getSDKData() {
@@ -136,6 +137,7 @@
   }
 
   onMount(() => {
+    console.log("Mounting map");
     map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/elhouck/ckz1rzqck006e14pg9ub32fha",
@@ -174,14 +176,14 @@
     // based on the feature found.
     popup.setLngLat(coordinates).setHTML(
       `<strong style="color:white;font-size: 14px;">${name}</strong>
-      <p style="margin:0; color:white;font-style: italic;font-size: 12px";>${coordinates[0].toFixed(2)}, ${coordinates[1].toFixed(2)}</p>`
+      <p style="margin:0; color:white;font-style: italic;font-size: 12px;">${coordinates[0].toFixed(2)}, ${coordinates[1].toFixed(2)}</p>`
     ).addTo(map);
     });
     
   // listener for marker select (click)
     map.on('click', 'stationdata', (e) => {
         //console.log(name);
-        toggleView("mapview","stationview");
+        toggleView();
     });
     
   //Listener for hover away
@@ -210,91 +212,86 @@
     */
 
   });
-
 </script>
 
-<div class="expandedview" style="display: initial; width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
-  <div class="filterHeader">    
-      <span class="material-icons" style="color: white; padding: 0.5rem;">
-      tune
-      </span>
-      <h3 style="width: 90%;">
-          Filters
-      </h3>
-      <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
-          <span class="material-icons" style="color: white;">
-          keyboard_double_arrow_left
-          </span>
-      </button>
-  </div>
-  <hr class="solid">
-  <h4>Location</h4>
-  <p>
-  Search for a station or coordinate to center the viewer on.
-  </p>
-  <div class="container">
-      <div class="sw" style="padding:0rem 1rem;">
-          
-              <div class="outerBorder" style="display:flex; flex-direction: row;">
-                  <input type="search" bind:value={locName} placeholder="Search..." style="height: 1.5rem; width: 90%;" />
-                  <button on:click={() => FilterLoc(locName)} style="margin: 0; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;">
-                      <span class="material-icons">
-                          search
-                      </span>
-                  </button>
-              </div>
-          
-      </div>
-  </div>
-  
-
-  <h4>Sensor</h4>
-  <p>
-  Filter out data sources, sensor types and sensor statuses.
-  </p>
-  <h5 style="margin: 2rem 0rem 1rem 0rem;" >Data Sources</h5>
-  <button class="filterSatData" on:click={() => filterButton("filterSatData",locName)} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
-      <span class="mdc-button__ripple"></span>
-      <span>Remote Data</span>
-  </button>
-  <button class="filterSituData"
-      on:click={() => filterButton("filterSituData",locName)}
-      style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%"
-  >
-      <span class="mdc-button__ripple"></span>
-      <span>In-Situ Data</span>
-  </button>
-  <!--
-  <h5>Station Status</h5>
-  <button class="filterActiveStat" on:click={() => filterButton("filterActiveStat")} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
-      <span class="mdc-button__ripple"></span>
-      <span>Active</span>
-  </button>
-  <button class="filterInactiveStat" on:click={() => filterButton("filterInactiveStat")} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
-      <span class="mdc-button__ripple"></span>
-      <span>Inactive</span>
-  </button>
-    -->
+<div style="padding: 0rem 2rem;">
+    <h2>Map View</h2>
+    <p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
 </div>
-
-<div class="collapsedview collapsed" style="width: 4.5rem; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
-  <div class="filterHeader">    
-      <span class="material-icons" style="color: white; padding: 0.5rem;">
-      tune
-      </span>
-      <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
-          <span class="material-icons" style="color: white;">
-          keyboard_double_arrow_right
-          </span>
-      </button>
+<div class="container" style=" width: 100%-4rem; height: 28rem; background: #FAFAFA;
+border-radius: 10px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+margin: 0rem 2rem;">
+  <div class="expandedview" style="display: initial; width: 223px; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
+    <div class="filterHeader">    
+        <span class="material-icons" style="color: white; padding: 0.5rem;">
+        tune
+        </span>
+        <h3 style="width: 90%;">
+            Filters
+        </h3>
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+            <span class="material-icons" style="color: white;">
+            keyboard_double_arrow_left
+            </span>
+        </button>
+    </div>
+    <hr class="solid">
+    <h4>Location</h4>
+    <p class="filter">
+    Search for a station or coordinate to center the viewer on.
+    </p>
+    <div class="container">
+        <div class="sw" style="padding:0rem 1rem;">
+            
+                <div class="outerBorder" style="display:flex; flex-direction: row;">
+                    <input type="search" bind:value={locName} placeholder="Search..." style="height: 1.5rem; width: 90%;" />
+                    <button on:click={() => FilterLoc(locName)} style="margin: 0; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;">
+                        <span class="material-icons">
+                            search
+                        </span>
+                    </button>
+                </div>
+            
+        </div>
+    </div>
+    
+  
+    <h4>Sensor</h4>
+    <p class="filter">
+    Filter out data sources, sensor types and sensor statuses.
+    </p>
+    <h5 style="margin: 2rem 0rem 1rem 0rem;" >Data Sources</h5>
+    <button class="filterSatData" on:click={() => filterButton("filterSatData",locName)} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
+        <span class="mdc-button__ripple"></span>
+        <span>Remote Data</span>
+    </button>
+    <button class="filterSituData"
+        on:click={() => filterButton("filterSituData",locName)}
+        style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%"
+    >
+        <span class="mdc-button__ripple"></span>
+        <span>In-Situ Data</span>
+    </button>
   </div>
-  <hr class="solid">
-</div>    
-<div style="margin-right: 2rem; width: 90%; height: 100%;" id="map">
+  <div class="collapsedview collapsed" style="width: 4.5rem; height:100%; background: #5F32A9; border-radius: 10px 0px 0px 10px; filter: drop-shadow(2px 0px 2px rgba(0, 0, 0, 0.25));">
+    <div class="filterHeader">    
+        <span class="material-icons" style="color: white; padding: 0.5rem;">
+        tune
+        </span>
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+            <span class="material-icons" style="color: white;">
+            keyboard_double_arrow_right
+            </span>
+        </button>
+    </div>
+    <hr class="solid">
+  </div>    
+  <div style="margin-right: 2rem; width: 90%; height: 100%;" id="map">
+  </div>
 </div>
 
 <style>
-  p {
+  p.filter {
         color: white;
         padding: 0 1rem;
     }
@@ -307,6 +304,10 @@
     }
 
     div.filterHeader {
+        display: flex;
+    }
+
+    div.container {
         display: flex;
     }
 </style>

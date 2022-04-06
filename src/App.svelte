@@ -1,5 +1,20 @@
 <script>
-	import ContentViewer from './components/ContentViewer.svelte'
+	import Map from './components/Map.svelte'
+    import Station from './components/Station.svelte'
+    import Data from './components/Data.svelte'
+	import { view } from './store.js'
+
+    const options = [
+		{ component: Map },
+		{ component: Station },
+		{ component: Data  },
+	];
+
+    let currView;
+
+    view.subscribe(value => {
+		currView = options[value];
+	});
 </script>
 
 <header>
@@ -11,20 +26,7 @@
 	</header>
 </header>
 <main>
-	<div class="mapview">
-		<h2>Map View</h2>
-		<p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
-	</div>
-	<div class="stationview notcurrentview" 
-	style="position: fixed; top: 5.5rem; z-index: 1; background-color: white; width: 100%; padding-left:0;">
-		<h2 style="padding-left:2rem;">Station View</h2>
-		<p style="padding-left:2rem;">Insert text about station here. Reading data from station.</p>
-	</div>
-	<div class="dataview notcurrentview">
-		<h2>Data View</h2>
-		<p>Insert text about station here. Reading specific dataset from station.</p>
-	</div>
-	<ContentViewer/>
+	<svelte:component this={currView.component}/>
 </main>
 <footer></footer>
 
@@ -35,10 +37,6 @@
 		max-width: 100%;
 		margin: 0 auto;
 		background: #FFFFFF;
-	}
-
-	div {
-		padding: 0rem 2rem;
 	}
 
 	@media (min-width: 640px) {
