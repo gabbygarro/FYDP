@@ -215,8 +215,8 @@
 </script>
 
 <div style="padding: 0rem 2rem;">
-    <h2>Map View</h2>
-    <p>Here you can see the map view of the available data, and filter what data is being viewed.</p>
+    <h2 role="heading">Map View</h2>
+    <p>Here you can see the map view of the available data, and filter what data is being viewed. Click on a station as indicated with a green circle on the map to view the most recent data collected at that station. You can return to this map at anytime by clicking on the HABitat logo at the top left of the page. For more information on how this site works, take a look at our documentation by clicking on the link labelled 'SDK' in the top right of the page. </p>
 </div>
 <div class="container" style=" width: 100%-4rem; height: 28rem; background: #FAFAFA;
 border-radius: 10px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -229,7 +229,7 @@ margin: 0rem 2rem;">
         <h3 style="width: 90%;">
             Filters
         </h3>
-        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;" alt="collapse">
             <span class="material-icons" style="color: white;">
             keyboard_double_arrow_left
             </span>
@@ -238,14 +238,13 @@ margin: 0rem 2rem;">
     <hr class="solid">
     <h4>Location</h4>
     <p class="filter">
-    Search for a station or coordinate to center the viewer on.
+    Search for a station by name to center the map viewer on.
     </p>
     <div class="container">
         <div class="sw" style="padding:0rem 1rem;">
-            
                 <div class="outerBorder" style="display:flex; flex-direction: row;">
                     <input type="search" bind:value={locName} placeholder="Search..." style="height: 1.5rem; width: 90%;" />
-                    <button on:click={() => FilterLoc(locName)} style="margin: 0; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;">
+                    <button on:click={() => FilterLoc(locName)} style="margin: 0; align:right; padding: 0rem; height: 1.5rem; width: 1.5rem;" alt="search">
                         <span class="material-icons">
                             search
                         </span>
@@ -256,11 +255,10 @@ margin: 0rem 2rem;">
     </div>
     
   
-    <h4>Sensor</h4>
-    <p class="filter">
-    Filter out data sources, sensor types and sensor statuses.
-    </p>
     <h5 style="margin: 2rem 0rem 1rem 0rem;" >Data Sources</h5>
+    <p class="filter">
+        Filter stations by data sources.
+    </p>
     <button class="filterSatData" on:click={() => filterButton("filterSatData",locName)} style="margin: 0.25rem 2rem; padding: 0.1rem; width: 80%">
         <span class="mdc-button__ripple"></span>
         <span>Remote Data</span>
@@ -278,7 +276,7 @@ margin: 0rem 2rem;">
         <span class="material-icons" style="color: white; padding: 0.5rem;">
         tune
         </span>
-        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+        <button on:click={() => toggleSidebar()} class="close" style="background:rgba(0,0,0,0); border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;" alt="expand">
             <span class="material-icons" style="color: white;">
             keyboard_double_arrow_right
             </span>

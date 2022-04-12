@@ -25,6 +25,7 @@ h1 {
 	display: flex;
 	margin: 0;
 	padding: 0.25rem 0.25rem;
+	cursor: pointer;
 }
 
 h2 {
@@ -193,6 +194,7 @@ button.unclicked {
 	color: #146C5F !important; /* Green */
 	border: 2px solid #146C5F !important; /* Green */
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+	text-decoration: none !important;
 }
 
 button.filterSatData, button.filterSituData, button.filterActiveStat, button.filterInactiveStat  {
@@ -203,6 +205,7 @@ button.filterSatData, button.filterSituData, button.filterActiveStat, button.fil
 	border-radius: 9px;
 	height: 24px;
 	width: 158px;
+	text-decoration: underline;
 }
 
 button.unclicked {

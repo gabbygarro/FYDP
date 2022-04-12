@@ -15,13 +15,30 @@
     view.subscribe(value => {
 		currView = options[value];
 	});
+
+	function toggleView(){
+        view.set(0);
+		stationView.set([]);
+        stationName.set("Station View");
+	}
 </script>
 
-<header>
-	<h1>
+<svelte:head>
+	<title>HABitat: Harmful Algae Bloom Data Aggregator</title>
+	<html lang="en"/>
+</svelte:head>
+<header style="display:flex;">
+	<h1 on:click={() => toggleView()}>
 		<img src="favicon.png" alt="HABitat plankton logo" height="48" width="48">
 		HABitat
+		
 	</h1>
+	<h2 style="margin-left:67rem; padding: 0.25rem 0.25rem; text-align: right;">
+		<a style="color: white; text-decoration: none !important;" href="https://pypi.org/project/habitat-fydp-package/">
+			SDK
+		</a>
+	</h2>
+	
 	<header class="top-nav">
 	</header>
 </header>

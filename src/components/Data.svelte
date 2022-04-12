@@ -61,7 +61,7 @@
             type: "timeseries",
             width: "95%",
             height: "90%",
-            renderAt: "chart-container",
+            renderAt: "data-chart-container",
             dataSource: {
             styleDefinition: {
                 "txt-white": {
@@ -159,8 +159,8 @@
 </script>
 
 <div style="padding: 0rem 2rem;">
-    <h2>{station_name}: {dataset_type}</h2>
-    <p>{dataset_desc}</p>
+    <h2 role="heading">{station_name}: {dataset_type}</h2>
+    <p>{dataset_desc} To go back to the {station_name} page, click on the left facing arrow in the upper left corner of the viewer. To return to the map, click on the HABitat logo at the top left of the page.</p>
 </div>
 <div class="container"
     style=" width: 100%-4rem; height: 28rem;
@@ -174,17 +174,17 @@
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;"
     id="station">
-    <button on:click={() => toggleView("dataview","stationview")} class="close" style="background:rgba(0,0,0,0); border-radius: 10px 0px 0px 0px; border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+    <button on:click={() => toggleView("dataview","stationview")} class="close" style="background:rgba(0,0,0,0); border-radius: 10px 0px 0px 0px; border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;" alt="go back">
             <span class="material-icons" style="color: white;">
                 keyboard_arrow_left
             </span>
         </button>
     <hr class="solid" style="margin: 0rem 0.5rem;">
     <div class="data-item">
-        <div id="chart-container">
+        <div>
             {#if (dataset.length !=0)}
                 <div class="grid-item">
-                    <div id="chart-container" >
+                    <div id="data-chart-container" >
                         <SvelteFC
                             {...chartSetup([dataset,schema])}
                         />

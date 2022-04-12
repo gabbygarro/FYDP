@@ -258,13 +258,13 @@
 </script>
 
 <div style="padding: 0rem 2rem; position: fixed; z-index: 1; background-color: white; width: 100%;">
-    <h2>{station_name}</h2>
-    <p>Reading all collected datasets from the station.</p>
+    <h2 role="heading">{station_name}</h2>
+    <p style="margin-right: 4rem;">Reading all collected datasets from this station. For a more detailed view of a dataset, click on the graph within the viewer to be navigated to its dedicated page. To go back to the map view, click on the left facing arrow in the upper left corner of the viewer or click on the HABitat logo at the top left of the page.</p>
 </div>
 <div class="container"
     style=" width: 100%-4rem;
     border-radius: 10px; filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    margin-top: 4.25rem; margin-right: 2rem; margin-bottom: 2.25rem; margin-left: 2rem;"
+    margin-top: 5.15rem; margin-right: 2rem; margin-bottom: 1.35rem; margin-left: 2rem;"
 >
    <div style="
     width: 100%; 
@@ -273,7 +273,7 @@
     border-radius: 10px;" 
     id="station">
 
-    <button on:click={() => toggleView("mapview")} class="close" style="background:rgba(0,0,0,0); border-radius: 10px 0px 0px 0px; border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;">
+    <button on:click={() => toggleView("mapview")} class="close" style="background:rgba(0,0,0,0); border-radius: 10px 0px 0px 0px; border:0; margin: 0; padding: 0.5rem 0rem 0rem 0.5rem;" alt="go back">
             <span class="material-icons" style="color: white;">
                 keyboard_arrow_left
             </span>
